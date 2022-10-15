@@ -1,7 +1,6 @@
 {
-  "name": "@lomray/euro2moon-web",
+  "name": "pokedex",
   "version": "1.0.0",
-  "description": "euro2moon website",
   "keywords": [
     "js",
     "typescript",
@@ -11,13 +10,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Lomray-Software/euro2moon-web.git"
+    "url": "https://github.com/viktoriabakun/pokedex-ssr-mobx"
   },
   "bugs": {
-    "url": "https://github.com/Lomray-Software/euro2moon-web/issues"
+    "url": "https://github.com/viktoriabakun/pokedex-ssr-mobx/issues"
   },
-  "homepage": "https://github.com/Lomray-Software/euro2moon-web",
-  "author": "Mikhail Yarmaliuk",
+  "homepage": "https://github.com/viktoriabakun/pokedex-ssr-mobx",
+  "author": "Viktoryia Bakun",
   "scripts": {
     "start": "razzle start",
     "export": "razzle export",
