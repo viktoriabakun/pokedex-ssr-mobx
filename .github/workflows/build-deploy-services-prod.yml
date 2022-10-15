@@ -1,0 +1,75 @@
+name: Build & Deploy Docker Image
+
+on:
+  push:
+    branches: [ prod ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.ref }}-build-deploy
+      cancel-in-progress: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+
+      - name: Change npm version
+        shell: bash
+        run: npm -v && npm install -g npm@7.24.1
+
+      - name: Get npm package version
+        id: package-version
+        uses: Saionaro/extract-package-version@v1.1.1
+
+      - name: Extract branch name
+        id: current-branch
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+
+      - name: Fix robots.txt
+        run: |
+          export BRANCH=${{ steps.current-branch.outputs.branch }}
+          ./.github/fix-robots.sh
+          ./.github/copy-env.sh
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: CI=false npm run build
+
+      - name: Create release asset
+        run: zip -r build.zip build package.json package-lock.json README.md
+
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: "Lomray-Software/euro2moon-web/web"
+          tags: "latest-${{ steps.current-branch.outputs.branch }},${{ steps.package-version.outputs.version }}-${{ steps.current-branch.outputs.branch }}"
+          dockerfile: Dockerfile
+          buildoptions: "--compress --force-rm --no-cache"
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy on ECS
+        run: |
+          export BRANCH=${{ steps.current-branch.outputs.branch }}
+          export SERVICE_NAME=e2m-web
+          export DOCKER_IMAGE_NAME=ghcr.io/lomray-software/euro2moon-web/web:latest-prod
+          ./.github/ecs-deploy.sh
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

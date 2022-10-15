@@ -1,0 +1,33 @@
+@import './vars';
+
+@mixin font($font-size-min, $font-size-max, $font-weight, $color) {
+  color: $color;
+  font-size: clamp(#{$font-size-min}, 2vw, #{$font-size-max});
+  font-weight: $font-weight;
+}
+
+@mixin full-bleed($background-color) {
+  box-shadow: 0 0 0 100vmax $background-color;
+  clip-path: inset(0 -100vmax);
+}
+
+@mixin disable-scrollbar() {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb,
+  &::-webkit-scrollbar-button,
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+    opacity: 0;
+    width: 0;
+  }
+}
+
+@mixin background-image($image, $position: center, $repeat: no-repeat, $size: cover) {
+  background-image: url($image);
+  background-position: $position;
+  background-repeat: $repeat;
+  background-size: $size;
+}

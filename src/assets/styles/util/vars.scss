@@ -1,0 +1,62 @@
+$container-min: 375px;
+$container-max: 1680px;
+
+$text-primary: #ffffff;
+$text-secondary: #6c7293;
+$text-placeholder: #989898;
+
+$background-primary: #191c24;
+$background-secondary: #000000;
+$nav-second-bg: #15181f;
+
+$c-transparent-white: rgba(255, 255, 255, 0.05);
+$c-transparent-white-medium: rgba(0, 0, 0, 0.25);
+$c-transparent-black-large: rgba(255, 255, 255, 0.5);
+$c-white: #ffffff;
+$c-black: #000000;
+$c-light-black: #191919;
+$c-light-black-secondary: #181818;
+$c-grey: #989898;
+$c-light-grey: #6C6C6C;
+$c-whity-grey: #C7C7C7;
+$c-slight-dark-grey: #C7C7C73F;
+$c-dark-grey: #323232;
+$c-border-grey: #7B7B7B;
+$c-blue: #1217c5;
+$c-light-blue: #3238FF;
+$c-success: #9441FF;
+$c-purple: #6732FFB2;
+$c-dark-purple: #B455FF26;
+$c-error: #ea2f2f;
+$c-border: #323232;
+$c-working-item: #141414;
+$c-border: #323232;
+$c-background-page: #0e0e0e;
+$c-orange: #FE8A1E;
+$box-shadow-orange: 0px 0px 18px #FE8A1E;
+
+$c-background-tag: #151515FF;
+$linear-gradient-dark: linear-gradient(180deg, rgba(0, 0, 0, 0.79) 0%, rgba(0, 0, 0, 0.79) 100%);
+
+$shadow-primary: 0px 0px 8px $c-light-blue;
+
+$border: 0.5px solid rgba($c-white, 0.19);
+$border-page: 1px solid $c-border;
+$border-dashed: 0.6px dashed $c-white;
+
+$ff-primary: 'TacticSans';
+$ff-secondary: 'Mukta';
+
+$border: 0.5px solid rgba($c-white, 0.19);
+$border-blue-linear: 1.25px solid rgba($c-light-blue, 0.45);
+$border-gray-linear: 2px solid rgba($c-white, 0.45);
+$border-page: 1px solid $c-border;
+
+$z-index-10: 10;
+$z-index-20: 20;
+$z-index-30: 30;
+$z-index-40: 40;
+$z-index-50: 50;
+$z-index-60: 60;
+$z-index-99: 99;
+$z-index-100: 100;

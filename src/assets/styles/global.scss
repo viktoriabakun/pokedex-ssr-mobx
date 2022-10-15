@@ -1,0 +1,49 @@
+@import 'util/fonts';
+@import 'util/vars';
+@import 'util/media-query';
+@import 'util/mixins';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  margin-inline: auto;
+  width: min(100% - 32px, clamp(#{$container-min}, 88.2vw, #{$container-max}));
+}
+
+.fullScreen {
+  @include media-breakpoint-down(md) {
+    width: 100% !important;
+  }
+}
