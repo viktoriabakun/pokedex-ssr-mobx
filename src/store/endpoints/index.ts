@@ -1,7 +1,8 @@
-import type { Method } from "axios";
-import type ApiClient from "@services/api-client";
-import type { IApiClientReqOptions } from "@services/api-client";
-import { IPokemonsResponse } from "@store/endpoints/interfaces/pokemons/i-api";
+import type { Method } from 'axios';
+import type ApiClient from '@services/api-client';
+import type { IApiClientReqOptions } from '@services/api-client';
+import type { IPokemonsResponse } from '@store/endpoints/interfaces/pokemons/i-api';
+import type { IPokemonDetails } from '@store/endpoints/interfaces/pokemons/i-details';
 
 interface IEndpointsCreateHandlerConfig extends Pick<IApiClientReqOptions, 'isCached'> {}
 
@@ -44,6 +45,9 @@ class Endpoints {
    * Backend API
    */
   backend = {
+    //when we need to drill some params, we can use currying, and then call it with params
+    // () => () =>
+    getPokemon: (name: string) => this.createHandler<never, IPokemonDetails>(`/pokemon/${name}`, 'GET'),
     getPokemons: this.createHandler<never, IPokemonsResponse>('/pokemon', 'GET'),
     subscribe: this.createHandler<any, never>('/api/footer-requests', 'POST'),
   };

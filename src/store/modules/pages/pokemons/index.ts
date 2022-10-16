@@ -1,7 +1,8 @@
-import type { IConstructorParams } from "@lomray/react-mobx-manager";
-import { action, makeObservable, observable } from "mobx";
-import type Endpoints from "@store/endpoints";
-import { IPokemon, IPokemons } from "@store/endpoints/interfaces/pokemons/i-list";
+import type { IConstructorParams } from '@lomray/react-mobx-manager';
+import { action, makeObservable, observable } from 'mobx';
+import type Endpoints from '@store/endpoints';
+import type { IPokemonDetails } from '@store/endpoints/interfaces/pokemons/i-details';
+import { IPokemon } from "@store/endpoints/interfaces/pokemons/i-list";
 
 /**
  * Pokemons store
@@ -17,7 +18,7 @@ class PokemonsStore {
    */
   private api: Endpoints;
 
-  public pokemons: IPokemons | null = null;
+  public pokemons: IPokemonDetails[] | null = null;
 
   /**
    * @constructor
@@ -31,18 +32,26 @@ class PokemonsStore {
     });
   }
 
-  public setPokemons(pokemons: IPokemon[]): void {
+  public setPokemons(pokemons: IPokemonDetails[]): void {
     this.pokemons = pokemons;
   }
 
   /**
-   * Get pokemons
+   * Get pokemons with details
    */
   public getPokemons = async (): Promise<void> => {
-    const { result } = await this.api.backend.getPokemons();
+    const { result: pokemonsList } = await this.api.backend.getPokemons();
 
-    if (result) {
-      this.setPokemons([...result?.results]);
+    const pokemonPromises = pokemonsList?.results.map(async ({ name }: IPokemon) => {
+      const { result } = await this.api.backend.getPokemon(name)();
+
+      return { ...result };
+    }) as Promise<IPokemonDetails>[];
+
+    const pokemons = await Promise.all(pokemonPromises);
+
+    if (pokemons) {
+      this.setPokemons(pokemons);
     }
   };
 }

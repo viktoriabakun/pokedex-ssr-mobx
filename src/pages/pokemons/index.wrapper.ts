@@ -1,5 +1,5 @@
 import { withStores } from '@lomray/react-mobx-manager';
 import stores from './index.stores';
-import Users from './index';
+import Pokemons from './index';
 
-export default withStores(Users, stores);
+export default withStores(Pokemons, stores);
