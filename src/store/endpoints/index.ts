@@ -47,7 +47,7 @@ class Endpoints {
   backend = {
     //when we need to drill some params, we can use currying, and then call it with params
     // () => () =>
-    getPokemon: (id: number) => this.createHandler<never, IPokemonDetails>(`/pokemon/${id}`, 'GET'),
+    getPokemon: (name: string) => this.createHandler<never, IPokemonDetails>(`/pokemon/${name}`, 'GET'),
     getPokemons: this.createHandler<never, IPokemonsResponse>('/pokemon', 'GET'),
     subscribe: this.createHandler<any, never>('/api/footer-requests', 'POST'),
   };
