@@ -21,9 +21,9 @@ const routes = [
     children: [
       // site routes
       {
-        path: ROUTE.USERS.URL,
+        path: ROUTE.POKEMONS.URL,
         element: asyncComponent({
-          loader: () => import('@pages/users/index.wrapper'),
+          loader: () => import('@pages/pokemons/index.wrapper'),
           ...asyncRouteProps,
         }),
       },

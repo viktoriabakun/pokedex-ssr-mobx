@@ -72,7 +72,7 @@ class ApiClient {
 
     // api timeout
     if ((code === 'ECONNABORTED' && message.includes('timeout')) || response?.status === 504) {
-      errMessage = 'Some think went wrong. Try again later.';
+      errMessage = 'Something went wrong. Try again later.';
     } else if (!response && message === 'Network Error') {
       errMessage = 'No internet connection';
     }

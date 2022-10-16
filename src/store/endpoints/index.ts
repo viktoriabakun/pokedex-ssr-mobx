@@ -1,7 +1,7 @@
-import type { Method } from 'axios';
-import type ApiClient from '@services/api-client';
-import type { IApiClientReqOptions } from '@services/api-client';
-import type { IUsers } from './interfaces/i-users';
+import type { Method } from "axios";
+import type ApiClient from "@services/api-client";
+import type { IApiClientReqOptions } from "@services/api-client";
+import { IPokemonsResponse } from "@store/endpoints/interfaces/pokemons/i-api";
 
 interface IEndpointsCreateHandlerConfig extends Pick<IApiClientReqOptions, 'isCached'> {}
 
@@ -44,7 +44,7 @@ class Endpoints {
    * Backend API
    */
   backend = {
-    getUsers: this.createHandler<never, IUsers>('/users', 'GET'),
+    getPokemons: this.createHandler<never, IPokemonsResponse>('/pokemon', 'GET'),
     subscribe: this.createHandler<any, never>('/api/footer-requests', 'POST'),
   };
 }
