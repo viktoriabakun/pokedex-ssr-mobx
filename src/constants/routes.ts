@@ -1,6 +1,6 @@
 const ROUTE = {
-  USERS: {
-    URL: '/users',
+  POKEMONS: {
+    URL: '/pokemons',
   },
   NOT_FOUND: {
     URL: '*',
