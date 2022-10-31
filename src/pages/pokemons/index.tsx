@@ -3,6 +3,9 @@ import InitialProps from '@helpers/initial-props';
 import type { SSRComponent } from '@interfaces/ssr-component';
 import type { StoreProps } from './index.stores';
 import stores from './index.stores';
+import PokemonListItem from "@pages/pokemons/list-item";
+import styles from './styles.module.scss';
+
 
 type IPokemons = StoreProps;
 
@@ -13,17 +16,9 @@ const Pokemons: SSRComponent<IPokemons> = ({ pokemonsStore: { pokemons } }) => (
       https://pokeapi.co/api/v2/pokemon
     </a>
 
-    <ul>
-      {pokemons?.map(({ name, sprites: { front_default: imgUrl }, types }) => (
-        <li key={name} style={{ fontSize: '2rem' }}>
-          <h2>{name}</h2>
-
-          {types.map(({ type }) => (
-            <h5 key={type.name}>{type.name}</h5>
-          ))}
-
-          <img src={imgUrl} alt={name} />
-        </li>
+    <ul className={styles.listContainer}>
+      {pokemons?.map(({ name, sprites: { front_default: imgUrl } }) => (
+        <PokemonListItem key={name} name={name} imgUrl={imgUrl} />
       ))}
     </ul>
   </div>
