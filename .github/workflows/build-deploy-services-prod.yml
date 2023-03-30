@@ -45,7 +45,7 @@ jobs:
         run: zip -r build.zip build package.json package-lock.json README.md
 
       - name: Publish to Registry
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: "Lomray-Software/euro2moon-web/web"
           tags: "latest-${{ steps.current-branch.outputs.branch }},${{ steps.package-version.outputs.version }}-${{ steps.current-branch.outputs.branch }}"
